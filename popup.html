@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <style>
+      body {
+        width: 350px;
+        padding: 20px;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: #f5f5f5;
+        margin: 0;
+      }
+
+      h3 {
+        color: #2c3e50;
+        margin: 0 0 20px 0;
+        text-align: center;
+        font-size: 1.5em;
+      }
+
+      .password-container {
+        background: white;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        margin-bottom: 15px;
+      }
+
+      #password {
+        width: 100%;
+        padding: 12px;
+        border: 2px solid #e0e0e0;
+        border-radius: 6px;
+        font-size: 1.1em;
+        font-family: monospace;
+        margin-bottom: 15px;
+        background: #f8f9fa;
+        color: #2c3e50;
+        box-sizing: border-box;
+      }
+
+      .options-container {
+        background: white;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        margin-bottom: 15px;
+      }
+
+      .option-group {
+        margin-bottom: 12px;
+      }
+
+      .option-group label {
+        display: block;
+        margin-bottom: 5px;
+        color: #2c3e50;
+        font-weight: 500;
+      }
+
+      .checkbox-group {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      .checkbox-label {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 0.9em;
+      }
+
+      input[type="range"] {
+        width: 100%;
+        margin: 10px 0;
+      }
+
+      .length-value {
+        text-align: center;
+        font-weight: bold;
+        color: #3498db;
+      }
+
+      .button-container {
+        display: flex;
+        gap: 10px;
+      }
+
+      button {
+        flex: 1;
+        padding: 12px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: all 0.3s ease;
+      }
+
+      #generate {
+        background: #3498db;
+        color: white;
+      }
+
+      #generate:hover {
+        background: #2980b9;
+      }
+
+      #copy {
+        background: #2ecc71;
+        color: white;
+      }
+
+      #copy:hover {
+        background: #27ae60;
+      }
+
+      .toast {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(0, 0, 0, 0.8);
+        color: white;
+        padding: 10px 20px;
+        border-radius: 20px;
+        font-size: 0.9em;
+        display: none;
+      }
+
+      .theme-switch {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+      }
+
+      .theme-switch button {
+        background: none;
+        border: none;
+        padding: 5px;
+        cursor: pointer;
+        color: var(--text-color);
+      }
+
+      .theme-switch .sun {
+        display: none;
+      }
+
+      [data-theme="dark"] .sun {
+        display: block;
+      }
+
+      [data-theme="dark"] .moon {
+        display: none;
+      }
+
+      body {
+        background: var(--bg-color);
+        color: var(--text-color);
+        transition: all 0.3s ease;
+      }
+
+      .password-container,
+      .options-container {
+        background: var(--container-bg);
+      }
+
+      #password {
+        background: var(--bg-color);
+        border-color: var(--border-color);
+        color: var(--text-color);
+      }
+
+      :root {
+        --bg-color: #f5f5f5;
+        --text-color: #2c3e50;
+        --container-bg: white;
+        --border-color: #e0e0e0;
+      }
+
+      [data-theme="dark"] {
+        --bg-color: #1a1a1a;
+        --text-color: #ffffff;
+        --container-bg: #2d2d2d;
+        --border-color: #404040;
+      }
+
+      body {
+        background: var(--bg-color);
+        color: var(--text-color);
+        transition: all 0.3s ease;
+      }
+
+      .theme-switch {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+      }
+
+      .theme-switch button {
+        background: none;
+        border: none;
+        padding: 5px;
+        cursor: pointer;
+        color: var(--text-color);
+      }
+
+      .theme-switch .sun {
+        display: none;
+      }
+
+      [data-theme="dark"] .sun {
+        display: block;
+      }
+
+      [data-theme="dark"] .moon {
+        display: none;
+      }
+
+      .password-container,
+      .options-container {
+        background: var(--container-bg);
+      }
+
+      #password {
+        background: var(--bg-color);
+        border-color: var(--border-color);
+        color: var(--text-color);
+      }
+
+      [data-theme="dark"] h3,
+      [data-theme="dark"] .option-group label,
+      [data-theme="dark"] .checkbox-label,
+      [data-theme="dark"] #lengthValue {
+        color: #ffffff;
+      }
+
+      [data-theme="dark"] #password {
+        background: #1a1a1a;
+        color: #ffffff;
+        border-color: #404040;
+      }
+
+      .github-link {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+      }
+
+      .github-link svg {
+        width: 24px;
+        height: 24px;
+        color: var(--text-color);
+        transition: color 0.3s ease;
+      }
+
+      .github-link:hover svg {
+        color: #3498db;
+      }
+    </style>
+  </head>
+  <body>
+    <a
+      href="https://github.com/lighscent/betterpass"
+      target="_blank"
+      class="github-link"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <path
+          d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"
+        ></path>
+      </svg>
+    </a>
+    <div class="theme-switch">
+      <button id="theme-toggle">
+        <svg
+          class="sun"
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <circle cx="12" cy="12" r="5" />
+          <line x1="12" y1="1" x2="12" y2="3" />
+          <line x1="12" y1="21" x2="12" y2="23" />
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+          <line x1="1" y1="12" x2="3" y2="12" />
+          <line x1="21" y1="12" x2="23" y2="12" />
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+        </svg>
+        <svg
+          class="moon"
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+        </svg>
+      </button>
+    </div>
+    <h3>BetterPass</h3>
+    <div class="password-container">
+      <input type="text" id="password" readonly />
+      <div class="button-container">
+        <button id="generate">Générer</button>
+        <button id="copy">Copier</button>
+      </div>
+    </div>
+    <div class="options-container">
+      <div class="option-group">
+        <label>Longueur: <span id="lengthValue">16</span> caractères</label>
+        <input type="range" id="length" min="8" max="50" value="16" />
+      </div>
+      <div class="option-group">
+        <label>Options:</label>
+        <div class="checkbox-group">
+          <label class="checkbox-label">
+            <input type="checkbox" id="uppercase" checked /> Majuscules
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" id="lowercase" checked /> Minuscules
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" id="numbers" checked /> Chiffres
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" id="symbols" checked /> Symboles
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="toast" id="toast">Mot de passe copié !</div>
+    <script src="popup.js"></script>
+  </body>
+</html>
