@@ -38,7 +38,20 @@
         <span class="material-icons moon">dark_mode</span>
       </button>
     </div>
-    <div id="update-notification"></div>
+    <div id="update-notification" class="update-banner">
+      <div class="update-content">
+        <span class="material-icons update-icon">system_update</span>
+        <div class="update-text">
+          <strong>Mise à jour disponible!</strong> <span id="update-version"></span>
+          <a href="https://github.com/lighscent/betterpass/releases/latest" target="_blank">
+            Cliquez ici pour télécharger
+          </a>
+        </div>
+      </div>
+      <button id="close-update" class="close-update">
+        <span class="material-icons">close</span>
+      </button>
+    </div>
     <h3>BetterPass</h3>
     <div class="password-container">
       <input type="text" id="password" readonly />

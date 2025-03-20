@@ -1,4 +1,10 @@
 document.addEventListener('DOMContentLoaded', function () {
+    // Ajout du gestionnaire pour fermer la notification de mise à jour
+    const closeUpdateBtn = document.getElementById('close-update');
+    closeUpdateBtn.addEventListener('click', function () {
+        document.getElementById('update-notification').style.display = 'none';
+    });
+
     function checkForUpdates() {
         const manifest = chrome.runtime.getManifest();
         const currentVersion = manifest.version;
@@ -9,14 +15,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     const latestVersion = data.tag_name.replace(/^v/, '');
                     if (latestVersion !== currentVersion) {
                         const updateNotification = document.getElementById('update-notification');
-                        updateNotification.innerHTML = `
-                            <strong>Mise à jour disponible!</strong> v${latestVersion} (actuel: v${currentVersion})
-                            <br>
-                            <a href="https://github.com/lighscent/betterpass/releases/latest" target="_blank">
-                                Cliquez ici pour télécharger
-                            </a>
-                        `;
-                        updateNotification.style.display = 'block';
+                        document.getElementById('update-version').textContent = `v${latestVersion} (actuel: v${currentVersion})`;
+                        updateNotification.style.display = 'flex';
                     }
                 }
             })
