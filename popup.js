@@ -96,6 +96,9 @@ document.addEventListener('DOMContentLoaded', function () {
             charArray = shuffleArray([...charArray]);
             const char = charArray[0];
 
+            if (password === '' && chars.symbols.includes(char)) {
+                continue;
+            }
             if (isSequential(lastChar, char) || password.includes(char)) {
                 continue;
             }
