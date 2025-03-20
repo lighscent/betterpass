@@ -119,7 +119,32 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
 
+        passwordArray = fixDuplicateSpecials(passwordArray);
+
         passwordField.value = passwordArray.join('');
+    }
+
+    function fixDuplicateSpecials(array) {
+        if (array.every(char => chars.symbols.includes(char))) return array;
+
+        let swapped;
+        do {
+            swapped = false;
+            for (let i = 1; i < array.length; i++) {
+                if (chars.symbols.includes(array[i]) && array[i] === array[i - 1]) {
+                    for (let j = 0; j < array.length; j++) {
+                        if (j === i || j === i - 1) continue;
+                        if (chars.symbols.includes(array[j]) && array[j] === array[i - 1]) continue;
+                        if (j > 0 && chars.symbols.includes(array[i]) && array[i] === array[j - 1]) continue;
+                        if (j < array.length - 1 && chars.symbols.includes(array[i]) && array[i] === array[j + 1]) continue;
+                        [array[i], array[j]] = [array[j], array[i]];
+                        swapped = true;
+                        break;
+                    }
+                }
+            }
+        } while (swapped);
+        return array;
     }
 
     function getRandomChar(string) {
