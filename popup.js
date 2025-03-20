@@ -27,11 +27,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-        setTheme(savedTheme === 'dark');
-    } else {
-        setTheme(prefersDark.matches);
-    }
+    setTheme(savedTheme ? savedTheme === 'dark' : prefersDark.matches);
 
     themeToggle.addEventListener('click', () => {
         const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
@@ -110,6 +106,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         passwordArray = shuffleArray(passwordArray);
 
+        // Ensure first character is not a special character
         if (chars.symbols.includes(passwordArray[0])) {
             for (let i = 1; i < passwordArray.length; i++) {
                 if (!chars.symbols.includes(passwordArray[i])) {
@@ -164,13 +161,6 @@ document.addEventListener('DOMContentLoaded', function () {
         return array;
     }
 
-    function isSequential(char1, char2) {
-        if (!char1 || !char2) return false;
-        const code1 = char1.charCodeAt(0);
-        const code2 = char2.charCodeAt(0);
-        return Math.abs(code1 - code2) === 1;
-    }
-
     function showToast() {
         toast.style.display = 'block';
         setTimeout(() => {
@@ -188,4 +178,4 @@ document.addEventListener('DOMContentLoaded', function () {
 
     loadPreferences();
     generatePassword();
-}); 
+});
