@@ -106,14 +106,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
         passwordArray = shuffleArray(passwordArray);
 
-        // Ensure first character is not a special character
-        if (chars.symbols.includes(passwordArray[0])) {
-            for (let i = 1; i < passwordArray.length; i++) {
-                if (!chars.symbols.includes(passwordArray[i])) {
-                    [passwordArray[0], passwordArray[i]] = [passwordArray[i], passwordArray[0]];
-                    break;
-                }
-            }
+        const nonSpecialCharset =
+            (uppercase.checked ? chars.uppercase : '') +
+            (lowercase.checked ? chars.lowercase : '') +
+            (numbers.checked ? chars.numbers : '');
+        if (nonSpecialCharset.length > 0 && chars.symbols.includes(passwordArray[0])) {
+            passwordArray[0] = getRandomChar(nonSpecialCharset);
         }
 
         passwordArray = fixDuplicateSpecials(passwordArray);
