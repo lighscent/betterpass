@@ -11,11 +11,9 @@ document.addEventListener('DOMContentLoaded', function () {
     const numbers = document.getElementById('numbers');
     const symbols = document.getElementById('symbols');
 
-    // Configuration du thème
     const themeToggle = document.getElementById('theme-toggle');
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
 
-    // Définir chars au début
     const chars = {
         uppercase: 'ABCDEFGHJKLMNPQRSTUVWXYZ',
         lowercase: 'abcdefghijkmnpqrstuvwxyz',
@@ -28,7 +26,6 @@ document.addEventListener('DOMContentLoaded', function () {
         localStorage.setItem('theme', isDark ? 'dark' : 'light');
     }
 
-    // Initialiser le thème
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme) {
         setTheme(savedTheme === 'dark');
@@ -41,7 +38,6 @@ document.addEventListener('DOMContentLoaded', function () {
         setTheme(!isDark);
     });
 
-    // Fonction pour sauvegarder les préférences
     function savePreferences() {
         const preferences = {
             length: lengthSlider.value,
@@ -53,7 +49,6 @@ document.addEventListener('DOMContentLoaded', function () {
         localStorage.setItem('passwordPreferences', JSON.stringify(preferences));
     }
 
-    // Fonction pour charger les préférences
     function loadPreferences() {
         const savedPreferences = localStorage.getItem('passwordPreferences');
         if (savedPreferences) {
@@ -67,7 +62,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    // Modifier les écouteurs d'événements existants
     lengthSlider.addEventListener('input', (e) => {
         lengthValue.textContent = e.target.value;
         savePreferences();
@@ -143,7 +137,6 @@ document.addEventListener('DOMContentLoaded', function () {
         showToast();
     });
 
-    // Charger les préférences au démarrage
     loadPreferences();
     generatePassword();
 }); 
