@@ -76,38 +76,57 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     function generatePassword() {
+        const length = parseInt(lengthSlider.value);
         let charset = '';
-        if (uppercase.checked) charset += chars.uppercase;
-        if (lowercase.checked) charset += chars.lowercase;
-        if (numbers.checked) charset += chars.numbers;
-        if (symbols.checked) charset += chars.symbols;
+        let requiredChars = [];
+
+        if (uppercase.checked) {
+            charset += chars.uppercase;
+            requiredChars.push(getRandomChar(chars.uppercase));
+        }
+        if (lowercase.checked) {
+            charset += chars.lowercase;
+            requiredChars.push(getRandomChar(chars.lowercase));
+        }
+        if (numbers.checked) {
+            charset += chars.numbers;
+            requiredChars.push(getRandomChar(chars.numbers));
+        }
+        if (symbols.checked) {
+            charset += chars.symbols;
+            requiredChars.push(getRandomChar(chars.symbols));
+        }
 
         if (charset === '') {
             passwordField.value = 'Sélectionnez au moins une option';
             return;
         }
 
-        const length = parseInt(lengthSlider.value);
-        let password = '';
-        let lastChar = '';
-        let charArray = charset.split('');
-
-        while (password.length < length) {
-            charArray = shuffleArray([...charArray]);
-            const char = charArray[0];
-
-            if (password === '' && chars.symbols.includes(char)) {
-                continue;
-            }
-            if (isSequential(lastChar, char) || password.includes(char)) {
-                continue;
-            }
-
-            password += char;
-            lastChar = char;
+        let passwordArray = [...requiredChars];
+        const remainingLength = length - passwordArray.length;
+        for (let i = 0; i < remainingLength; i++) {
+            passwordArray.push(getRandomChar(charset));
         }
 
-        passwordField.value = password;
+        passwordArray = shuffleArray(passwordArray);
+
+        if (chars.symbols.includes(passwordArray[0])) {
+            for (let i = 1; i < passwordArray.length; i++) {
+                if (!chars.symbols.includes(passwordArray[i])) {
+                    [passwordArray[0], passwordArray[i]] = [passwordArray[i], passwordArray[0]];
+                    break;
+                }
+            }
+        }
+
+        passwordField.value = passwordArray.join('');
+    }
+
+    function getRandomChar(string) {
+        const randomBuffer = new Uint32Array(1);
+        crypto.getRandomValues(randomBuffer);
+        const index = Math.floor(randomBuffer[0] / (0xFFFFFFFF + 1) * string.length);
+        return string[index];
     }
 
     function shuffleArray(array) {
