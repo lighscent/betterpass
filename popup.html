@@ -241,6 +241,42 @@
         fill: none;
       }
 
+      #update-notification {
+        display: none;
+        background: var(--container-bg);
+        border-left: 4px solid var(--accent-color);
+        color: var(--text-color);
+        padding: 12px 16px;
+        margin-bottom: 20px;
+        border-radius: 8px;
+        font-size: 0.9em;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+        animation: slideIn 0.3s ease-out;
+        position: relative;
+        line-height: 1.5;
+      }
+
+      #update-notification a {
+        color: var(--accent-color);
+        text-decoration: none;
+        font-weight: 500;
+      }
+
+      #update-notification a:hover {
+        text-decoration: underline;
+      }
+
+      @keyframes slideIn {
+        from {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
       /* Theme variables */
       :root {
         --bg-color: #f8f9fa;
@@ -256,6 +292,8 @@
         --secondary-hover: #32b0a1;
         --hover-bg: rgba(0, 0, 0, 0.05);
         --slider-bg: #d1d9e6;
+        --notification-bg: #ebf3fc;
+        --notification-border: #4361ee;
       }
 
       [data-theme="dark"] {
@@ -272,6 +310,8 @@
         --secondary-hover: #32b0a1;
         --hover-bg: rgba(255, 255, 255, 0.05);
         --slider-bg: #3d3d3d;
+        --notification-bg: #2d3748;
+        --notification-border: #4361ee;
       }
     </style>
   </head>
@@ -331,6 +371,7 @@
         </svg>
       </button>
     </div>
+    <div id="update-notification"></div>
     <h3>BetterPass</h3>
     <div class="password-container">
       <input type="text" id="password" readonly />
