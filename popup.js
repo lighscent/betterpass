@@ -1,4 +1,30 @@
 document.addEventListener('DOMContentLoaded', function () {
+    function checkForUpdates() {
+        const manifest = chrome.runtime.getManifest();
+        const currentVersion = manifest.version;
+        fetch('https://api.github.com/repos/lighscent/betterpass/releases/latest')
+            .then(response => response.json())
+            .then(data => {
+                if (data.tag_name) {
+                    const latestVersion = data.tag_name.replace(/^v/, '');
+                    if (latestVersion !== currentVersion) {
+                        const updateNotification = document.getElementById('update-notification');
+                        updateNotification.innerHTML = `
+                            <strong>Mise à jour disponible!</strong> v${latestVersion} (actuel: v${currentVersion})
+                            <br>
+                            <a href="https://github.com/lighscent/betterpass/releases/latest" target="_blank">
+                                Cliquez ici pour télécharger
+                            </a>
+                        `;
+                        updateNotification.style.display = 'block';
+                    }
+                }
+            })
+            .catch(err => {
+                console.error('Échec de la vérification des mises à jour :', err);
+            });
+    }
+
     const generateBtn = document.getElementById('generate');
     const copyBtn = document.getElementById('copy');
     const passwordField = document.getElementById('password');
@@ -174,6 +200,7 @@ document.addEventListener('DOMContentLoaded', function () {
         showToast();
     });
 
+    checkForUpdates();
     loadPreferences();
     generatePassword();
 });
