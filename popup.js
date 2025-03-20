@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Ajout du gestionnaire pour fermer la notification de mise à jour
     const closeUpdateBtn = document.getElementById('close-update');
     closeUpdateBtn.addEventListener('click', function () {
         document.getElementById('update-notification').style.display = 'none';
