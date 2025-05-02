@@ -1,3 +1,7 @@
+# ⚠️ DISCONTINUED ⚠️
+
+New project is https://github.com/lighscent/XPassWords
+
 # BetterPass
 
 Une extension Chrome pour générer des mots de passe sécurisés avec une interface moderne et personnalisable.
